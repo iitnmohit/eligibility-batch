@@ -1,0 +1,7 @@
+data:
+  r2dbc:
+    member:
+      host: "frx-dev-cluster-instance-1.coyx7keyezem.ap-south-1.rds.amazonaws.com"
+      database-name: "futurerx_config_member"
+      user: "root"
+      password: "Ku$5Yke#"

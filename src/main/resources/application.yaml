@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: MEMBER_ELIGIBILITY_BATCH
+  profiles:
+    include:
+      - cache
+      - data
+    active: local
+server:
+  port: 8080
+management:
+  health:
+    db:
+      enabled: true
+logging:
+  level:
+    root: INFO
+    com.futurerx.loader: INFO

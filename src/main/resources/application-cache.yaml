@@ -1,0 +1,15 @@
+cache:
+  member-eligibility-effective-date:
+    enabled: true
+    max-entry: 1000
+    expire-second: 900
+    retry-max-attempts: 5
+    retry-min-backoff-millis: 500
+    retry-max-backoff-millis: 10000
+  member-eligibility-termination-date:
+    enabled: true
+    max-entry: 1000
+    expire-second: 900
+    retry-max-attempts: 5
+    retry-min-backoff-millis: 500
+    retry-max-backoff-millis: 10000
