@@ -1,6 +1,7 @@
 package com.futurerx.batch.core.cache;
 
 import com.futurerx.batch.config.property.CacheProperty;
+import com.futurerx.batch.core.exception.BatchException;
 import com.google.common.cache.Cache;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,7 +52,7 @@ public abstract class AbstractFluxCache<T, ID> implements ICacheReady, ICache, I
               "unexpected flux cache ERROR happened of type %s, while loading data for id %s : %s",
               tType, id, e.getMessage());
       log.error(msg);
-      return Flux.error(new CacheException(msg));
+      return Flux.error(new BatchException(msg));
     }
   }
 
@@ -77,7 +78,7 @@ public abstract class AbstractFluxCache<T, ID> implements ICacheReady, ICache, I
                     id,
                     throwable.getMessage(),
                     getRetryMaxAttempts()))
-        .onErrorMap(throwable -> new CacheException(throwable.getMessage()));
+        .onErrorMap(throwable -> new BatchException(throwable.getMessage()));
   }
 
   @NonNull
