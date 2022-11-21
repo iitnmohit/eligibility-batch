@@ -1,5 +1,7 @@
 package com.futurerx.batch.core.model;
 
+import com.futurerx.batch.core.constant.DataSourceType;
+import com.futurerx.batch.core.constant.EnvironmentType;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,4 +19,7 @@ public abstract class AbstractBatchRequest {
 
   private LocalDateTime startTime;
   private LocalDateTime endTime;
+
+  private DataSourceType dataSourceType;
+  private EnvironmentType environmentType;
 }
