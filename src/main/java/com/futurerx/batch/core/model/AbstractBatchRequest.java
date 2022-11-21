@@ -1,6 +1,5 @@
 package com.futurerx.batch.core.model;
 
-import com.futurerx.batch.core.service.IValidator;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,7 +13,7 @@ import java.time.LocalDateTime;
 @ToString
 @SuperBuilder
 @EqualsAndHashCode
-public abstract class AbstractBatchRequest implements IValidator {
+public abstract class AbstractBatchRequest {
 
   private LocalDateTime startTime;
   private LocalDateTime endTime;
