@@ -1,8 +1,10 @@
 package com.futurerx.batch.core.service;
 
+import com.futurerx.batch.core.constant.BatchType;
 import com.futurerx.batch.core.exception.BatchException;
 import com.futurerx.batch.core.model.AbstractBatchRequest;
 import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -15,6 +17,12 @@ public abstract class AbstractBatch<R extends AbstractBatchRequest> extends Abst
     implements IBatchProcessor<R> {
 
   protected abstract Flux<R> expandRequest(@NonNull R request);
+
+  @NonNull
+  @Override
+  public boolean apply(@Nullable BatchType batchType) {
+    return getBatchType().equals(batchType);
+  }
 
   @Override
   public void accept(@NonNull R r) {
