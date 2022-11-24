@@ -14,7 +14,7 @@ import java.util.function.BiConsumer;
 import static java.util.Optional.ofNullable;
 
 public abstract class AbstractBatch<R extends AbstractBatchRequest> extends AbstractBatchBase<R>
-    implements IBatchProcessor<R> {
+    implements IBatchProcessor<R>, IBatch {
 
   protected abstract Flux<R> expandRequest(@NonNull R request);
 
