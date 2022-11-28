@@ -1,0 +1,8 @@
+aws:
+  sqs:
+    effective-batch:
+      queue-region: "ap-south-1"
+      queue-name: "frx-autorouting-trigger"
+    termination-batch:
+      queue-region: "ap-south-1"
+      queue-name: "frx-autorouting-trigger"

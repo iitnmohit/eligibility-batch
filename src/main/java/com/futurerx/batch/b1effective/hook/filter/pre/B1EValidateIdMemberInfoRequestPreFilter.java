@@ -9,14 +9,11 @@ import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
-import static java.util.Objects.isNull;
-import static java.util.Objects.nonNull;
-
 @Component
-public class B1EValidateTerminationDateRequestPreFilter extends AbstractB1EffHook
+public class B1EValidateIdMemberInfoRequestPreFilter extends AbstractB1EffHook
     implements IRequestPreFilter<EffectiveBatchRequest> {
 
-  public static final int PRIORITY = B1EValidateIdMemberInfoRequestPreFilter.PRIORITY - 2;
+  public static final int PRIORITY = 1000;
 
   @Override
   public int getPriority() {
@@ -27,16 +24,7 @@ public class B1EValidateTerminationDateRequestPreFilter extends AbstractB1EffHoo
   public boolean test(@NonNull EffectiveBatchRequest request) {
     return Optional.of(request)
         .map(EffectiveBatchRequest::getMemberEligibilityEntity)
-        .filter(mee -> nonNull(mee.getEffectiveDate()))
-        .map(this::isValidEligibility)
-        .orElse(false);
-  }
-
-  @NonNull
-  private boolean isValidEligibility(@NonNull MemberEligibilityEntity memberEligibilityEntity) {
-    return isNull(memberEligibilityEntity.getTerminationDate())
-        || memberEligibilityEntity
-            .getEffectiveDate()
-            .isBefore(memberEligibilityEntity.getTerminationDate());
+        .map(MemberEligibilityEntity::getIdMemberInfo)
+        .isPresent();
   }
 }
