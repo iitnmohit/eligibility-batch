@@ -34,7 +34,8 @@ public abstract class AbstractBatch<R extends AbstractBatchRequest> extends Abst
         .flatMap(this::requestProcessor)
         .doOnNext(request -> request.setEndTime(LocalDateTime.now()))
         .flatMap(this::requestPostProcessor)
-        .onErrorContinue(BatchException.class, errorRequestBiConsumer());
+        .onErrorContinue(BatchException.class, errorRequestBiConsumer())
+        .blockLast();
   }
 
   @NonNull
