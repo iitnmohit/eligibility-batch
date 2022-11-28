@@ -32,6 +32,7 @@ public class B1ETriggerSQSRequestProcessor extends AbstractB1EffHook
     return Mono.just(effectiveBatchRequest)
         .map(effectiveBatchRequestToSqsRequest)
         .doOnNext(msg -> sqsSendMessage.accept(sqsProperty.getEffectiveBatch(), msg))
+        .doOnNext(s -> effectiveBatchRequest.getCounter().incrementAndGet())
         .map(o -> effectiveBatchRequest)
         .defaultIfEmpty(effectiveBatchRequest);
   }

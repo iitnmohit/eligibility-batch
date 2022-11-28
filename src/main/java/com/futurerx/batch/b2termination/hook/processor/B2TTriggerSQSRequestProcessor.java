@@ -33,6 +33,7 @@ public class B2TTriggerSQSRequestProcessor extends AbstractB2TerHook
     return Mono.just(terminatedBatchRequest)
         .map(terminatedBatchRequestToSqsRequest)
         .doOnNext(msg -> sqsSendMessage.accept(sqsProperty.getTerminationBatch(), msg))
+        .doOnNext(s -> terminatedBatchRequest.getCounter().incrementAndGet())
         .map(o -> terminatedBatchRequest)
         .defaultIfEmpty(terminatedBatchRequest);
   }

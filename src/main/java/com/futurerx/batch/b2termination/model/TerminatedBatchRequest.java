@@ -10,6 +10,7 @@ import lombok.experimental.SuperBuilder;
 import org.springframework.lang.NonNull;
 
 import java.time.LocalDate;
+import java.util.concurrent.atomic.AtomicLong;
 
 @Setter
 @Getter
@@ -20,6 +21,7 @@ public class TerminatedBatchRequest extends AbstractBatchRequest {
 
   private MemberEligibilityEntity memberEligibilityEntity;
   private LocalDate terminationDate;
+  private AtomicLong counter;
 
   @NonNull
   public TerminatedBatchRequest cloneFromMemberEligibilityEntity(
@@ -31,6 +33,7 @@ public class TerminatedBatchRequest extends AbstractBatchRequest {
         .endTime(this.getEndTime())
         .dataSourceType(this.getDataSourceType())
         .environmentType(this.getEnvironmentType())
+        .counter(counter)
         .build();
   }
 }

@@ -12,6 +12,8 @@ import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Flux;
 
+import java.util.concurrent.atomic.AtomicLong;
+
 import static com.futurerx.batch.core.constant.BatchType.BATCH_ELIGIBILITY_TERMINATION;
 import static com.futurerx.batch.core.constant.DataSourceType.SQL_DB;
 import static com.futurerx.batch.core.constant.EnvironmentType.LOCAL;
@@ -34,6 +36,7 @@ public class BatchTermination extends AbstractBatch<TerminatedBatchRequest> {
             .dataSourceType(SQL_DB)
             .environmentType(LOCAL)
             .terminationDate(now())
+            .counter(new AtomicLong(0L))
             .build());
   }
 

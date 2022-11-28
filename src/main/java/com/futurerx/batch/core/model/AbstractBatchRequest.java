@@ -7,8 +7,10 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
+import org.springframework.lang.NonNull;
 
 import java.time.LocalDateTime;
+import java.util.concurrent.atomic.AtomicLong;
 
 @Setter
 @Getter
@@ -22,4 +24,7 @@ public abstract class AbstractBatchRequest {
 
   private DataSourceType dataSourceType;
   private EnvironmentType environmentType;
+
+  @NonNull
+  public abstract AtomicLong getCounter();
 }
