@@ -15,11 +15,13 @@ public class B2TValidateIdMemberInfoRequestPreFilter extends AbstractB2TerHook
 
   public static final int PRIORITY = 1000;
 
+  @NonNull
   @Override
   public int getPriority() {
     return PRIORITY;
   }
 
+  @NonNull
   @Override
   public boolean test(@NonNull TerminatedBatchRequest request) {
     return Optional.of(request)

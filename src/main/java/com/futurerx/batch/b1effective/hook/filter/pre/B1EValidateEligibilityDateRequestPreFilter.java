@@ -13,16 +13,18 @@ import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
 @Component
-public class B1EValidateTerminationDateRequestPreFilter extends AbstractB1EffHook
+public class B1EValidateEligibilityDateRequestPreFilter extends AbstractB1EffHook
     implements IRequestPreFilter<EffectiveBatchRequest> {
 
   public static final int PRIORITY = B1EValidateIdMemberInfoRequestPreFilter.PRIORITY - 2;
 
+  @NonNull
   @Override
   public int getPriority() {
     return PRIORITY;
   }
 
+  @NonNull
   @Override
   public boolean test(@NonNull EffectiveBatchRequest request) {
     return Optional.of(request)

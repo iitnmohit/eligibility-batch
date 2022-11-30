@@ -3,6 +3,7 @@ package com.futurerx.batch.b1effective.function;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.futurerx.batch.b1effective.model.EffectiveBatchRequest;
+import com.futurerx.batch.core.exception.BatchException;
 import com.futurerx.batch.core.sqs.SqsEligibilityModel;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.lang.NonNull;
@@ -17,7 +18,7 @@ import static com.futurerx.batch.common.Constants.STATUS_ACTIVE;
 @Component
 public class EffectiveBatchRequestToSqsRequest implements Function<EffectiveBatchRequest, String> {
 
-  private final ObjectMapper objectMapper = new ObjectMapper();
+  private static final ObjectMapper objectMapper = new ObjectMapper();
 
   @NonNull
   @Override
@@ -31,7 +32,7 @@ public class EffectiveBatchRequestToSqsRequest implements Function<EffectiveBatc
               .build());
     } catch (JsonProcessingException e) {
       log.error("error while parsing data : {}", e.getMessage());
-      return "{}";
+      throw new BatchException(e.getMessage());
     }
   }
 }

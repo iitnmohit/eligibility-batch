@@ -12,16 +12,18 @@ import java.util.Optional;
 import static java.util.Objects.nonNull;
 
 @Component
-public class B2TValidateNullTerminationDateRequestPreFilter extends AbstractB2TerHook
+public class B2TValidateEligibilityDateRequestPreFilter extends AbstractB2TerHook
     implements IRequestPreFilter<TerminatedBatchRequest> {
 
   public static final int PRIORITY = B2TValidateIdMemberInfoRequestPreFilter.PRIORITY - 2;
 
+  @NonNull
   @Override
   public int getPriority() {
     return PRIORITY;
   }
 
+  @NonNull
   @Override
   public boolean test(@NonNull TerminatedBatchRequest request) {
     return Optional.of(request)

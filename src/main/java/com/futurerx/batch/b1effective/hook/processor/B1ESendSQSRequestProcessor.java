@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
 
 @Component
-public class B1ETriggerSQSRequestProcessor extends AbstractB1EffHook
+public class B1ESendSQSRequestProcessor extends AbstractB1EffHook
     implements IRequestProcessor<EffectiveBatchRequest> {
 
   public static final int PRIORITY = 1000;
@@ -21,6 +21,7 @@ public class B1ETriggerSQSRequestProcessor extends AbstractB1EffHook
   @Autowired private SqsSendMessage sqsSendMessage;
   @Autowired private EffectiveBatchRequestToSqsRequest effectiveBatchRequestToSqsRequest;
 
+  @NonNull
   @Override
   public int getPriority() {
     return PRIORITY;

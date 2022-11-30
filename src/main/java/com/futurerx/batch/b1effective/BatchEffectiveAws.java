@@ -5,6 +5,7 @@ import com.futurerx.batch.core.constant.BatchType;
 import com.futurerx.batch.core.service.AbstractBatch;
 import com.futurerx.batch.member.cache.CacheMemberEligibilityEffectiveDateRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.annotation.Profile;
 import org.springframework.context.event.EventListener;
@@ -16,13 +17,16 @@ import java.util.concurrent.atomic.AtomicLong;
 
 import static com.futurerx.batch.core.constant.BatchType.BATCH_ELIGIBILITY_EFFECTIVE;
 import static com.futurerx.batch.core.constant.DataSourceType.SQL_DB;
-import static com.futurerx.batch.core.constant.EnvironmentType.LOCAL;
+import static com.futurerx.batch.core.constant.EnvironmentType.AWS;
 import static java.time.LocalDate.now;
 import static java.util.Objects.isNull;
 
 @Component
-@Profile("local")
-public class BatchEffective extends AbstractBatch<EffectiveBatchRequest> {
+@Profile("aws")
+public class BatchEffectiveAws extends AbstractBatch<EffectiveBatchRequest> {
+
+  @Value("${batch.effective-batch.effective-date-offset:0}")
+  private Integer effectiveDateOffset;
 
   @Autowired
   private CacheMemberEligibilityEffectiveDateRepository
@@ -34,8 +38,8 @@ public class BatchEffective extends AbstractBatch<EffectiveBatchRequest> {
     this.accept(
         EffectiveBatchRequest.builder()
             .dataSourceType(SQL_DB)
-            .environmentType(LOCAL)
-            .effectiveDate(now())
+            .environmentType(AWS)
+            .effectiveDate(now().plusDays(effectiveDateOffset))
             .counter(new AtomicLong(0L))
             .build());
   }
@@ -43,6 +47,10 @@ public class BatchEffective extends AbstractBatch<EffectiveBatchRequest> {
   @NonNull
   @Override
   protected Flux<EffectiveBatchRequest> expandRequest(@NonNull EffectiveBatchRequest request) {
+    if (!AWS.equals(request.getEnvironmentType())) {
+      return Flux.empty();
+    }
+
     if (isNull(request.getEffectiveDate())) {
       return Flux.empty();
     }

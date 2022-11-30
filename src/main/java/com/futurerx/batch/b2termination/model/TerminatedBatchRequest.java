@@ -33,7 +33,7 @@ public class TerminatedBatchRequest extends AbstractBatchRequest {
         .endTime(this.getEndTime())
         .dataSourceType(this.getDataSourceType())
         .environmentType(this.getEnvironmentType())
-        .counter(counter)
+        .counter(this.getCounter())
         .build();
   }
 }

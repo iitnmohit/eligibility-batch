@@ -15,11 +15,13 @@ public class B1EValidateIdMemberInfoRequestPreFilter extends AbstractB1EffHook
 
   public static final int PRIORITY = 1000;
 
+  @NonNull
   @Override
   public int getPriority() {
     return PRIORITY;
   }
 
+  @NonNull
   @Override
   public boolean test(@NonNull EffectiveBatchRequest request) {
     return Optional.of(request)

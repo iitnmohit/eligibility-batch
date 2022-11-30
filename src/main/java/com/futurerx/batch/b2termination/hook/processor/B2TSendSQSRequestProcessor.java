@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
 
 @Component
-public class B2TTriggerSQSRequestProcessor extends AbstractB2TerHook
+public class B2TSendSQSRequestProcessor extends AbstractB2TerHook
     implements IRequestProcessor<TerminatedBatchRequest> {
 
   public static final int PRIORITY = 1000;
@@ -21,6 +21,7 @@ public class B2TTriggerSQSRequestProcessor extends AbstractB2TerHook
   @Autowired private SqsSendMessage sqsSendMessage;
   @Autowired private TerminatedBatchRequestToSqsRequest terminatedBatchRequestToSqsRequest;
 
+  @NonNull
   @Override
   public int getPriority() {
     return PRIORITY;
